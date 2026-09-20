@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#071a36">
+  <title>GESBANK</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="logo">G</span><div><b>GESBANK</b><small>Tu dinero, siempre contigo</small></div></div>
+    <button id="logout" class="ghost">Salir</button>
+  </header>
+
+  <main>
+    <section id="authView" class="panel auth">
+      <h1>Bienvenido a GESBANK</h1>
+      <p>Creá tu cuenta de prueba y comenzá a operar.</p>
+      <input id="email" type="email" placeholder="Email">
+      <input id="password" type="password" placeholder="Contraseña">
+      <input id="name" type="text" placeholder="Nombre completo">
+      <button id="register" class="primary">Crear cuenta</button>
+      <button id="login" class="secondary">Ingresar</button>
+      <p id="authMsg" class="msg"></p>
+    </section>
+
+    <section id="bankView" hidden>
+      <div class="account">
+        <div>
+          <span>Cuenta GESBANK</span>
+          <h2 id="balance">$ 0,00</h2>
+          <p>Alias: <b id="alias">—</b> <button id="copyAlias" class="copy">Copiar</button></p>
+        </div>
+        <div class="account-id">Cuenta<br><b id="accountId">—</b></div>
+      </div>
+
+      <div class="actions">
+        <button data-action="send">↗<b>Enviar</b><small>Dinero</small></button>
+        <button data-action="receive">↓<b>Recibir</b><small>Dinero</small></button>
+        <button data-action="pay">▣<b>Pagar</b><small>Comercio</small></button>
+        <button data-action="movements">☷<b>Movimientos</b><small>Historial</small></button>
+      </div>
+
+      <section class="panel">
+        <div class="section-title"><h2>Últimos movimientos</h2><button id="allMovements" class="link">Ver todos</button></div>
+        <div id="movements"></div>
+      </section>
+
+      <section id="operation" class="panel" hidden></section>
+    </section>
+  </main>
+
+  <template id="movementTemplate">
+    <article class="movement">
+      <div class="movement-icon"></div>
+      <div class="movement-text"><b class="movement-title"></b><small class="movement-detail"></small><small class="movement-date"></small></div>
+      <strong class="movement-amount"></strong>
+    </article>
+  </template>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
