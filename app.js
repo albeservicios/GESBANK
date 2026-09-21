@@ -3,10 +3,6 @@
 // app.js
 // ============================================================
 
-// ============================================================
-// FIREBASE
-// ============================================================
-
 import { initializeApp } from
     "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
@@ -35,19 +31,12 @@ import {
 // ============================================================
 
 const firebaseConfig = {
-
-    apiKey: "AIzaSyD3BxOZbaaJimSmzc7Ek5t0DOBJTrNWqS",
-
+    apiKey: "AIzaSyD3BxOZbaaJimSmzc7Ek5t0DOBJTrNWqS0",
     authDomain: "gesbank-d3e55.firebaseapp.com",
-
     projectId: "gesbank-d3e55",
-
     storageBucket: "gesbank-d3e55.firebasestorage.app",
-
     messagingSenderId: "634695016427",
-
     appId: "1:634695016427:web:b173d46e96407bc6fac3ae"
-
 };
 
 
@@ -153,7 +142,7 @@ function mostrarRegistro() {
 
 
 // ============================================================
-// HACER LAS FUNCIONES ACCESIBLES DESDE HTML
+// HACER FUNCIONES ACCESIBLES DESDE EL HTML
 // ============================================================
 
 window.mostrarLogin = mostrarLogin;
@@ -304,7 +293,7 @@ if (formRegistro) {
 
 
             // ------------------------------------------------
-            // DATOS
+            // DATOS PERSONALES
             // ------------------------------------------------
 
             const nombre =
@@ -331,6 +320,11 @@ if (formRegistro) {
                     ?.value
                     .trim();
 
+
+            // ------------------------------------------------
+            // DOMICILIO
+            // ------------------------------------------------
+
             const domicilio =
                 document.getElementById("domicilio")
                     ?.value
@@ -346,6 +340,11 @@ if (formRegistro) {
                     ?.value
                     .trim();
 
+
+            // ------------------------------------------------
+            // CONTACTO
+            // ------------------------------------------------
+
             const telefono =
                 document.getElementById("telefono")
                     ?.value
@@ -356,6 +355,11 @@ if (formRegistro) {
                     ?.value
                     .trim()
                     .toLowerCase();
+
+
+            // ------------------------------------------------
+            // SEGURIDAD
+            // ------------------------------------------------
 
             const password =
                 document.getElementById("registroPassword")
@@ -392,7 +396,7 @@ if (formRegistro) {
 
 
             // ------------------------------------------------
-            // CHECKBOX
+            // ACEPTACIONES
             // ------------------------------------------------
 
             const aceptaTerminos =
@@ -552,7 +556,7 @@ if (formRegistro) {
 
 
             // =================================================
-            // DESHABILITAR BOTÓN
+            // BOTÓN
             // =================================================
 
             const botonRegistro =
@@ -573,7 +577,7 @@ if (formRegistro) {
             try {
 
                 // =================================================
-                // CREAR USUARIO FIREBASE AUTH
+                // CREAR USUARIO EN FIREBASE AUTH
                 // =================================================
 
                 const credencial =
@@ -589,7 +593,7 @@ if (formRegistro) {
 
 
                 // =================================================
-                // ACTUALIZAR NOMBRE
+                // NOMBRE DE USUARIO
                 // =================================================
 
                 await updateProfile(
@@ -602,7 +606,7 @@ if (formRegistro) {
 
 
                 // =================================================
-                // GENERAR DATOS DE CUENTA
+                // GENERAR CUENTA
                 // =================================================
 
                 const accountId =
@@ -616,7 +620,7 @@ if (formRegistro) {
 
 
                 // =================================================
-                // GUARDAR CUENTA EN FIRESTORE
+                // GUARDAR EN FIRESTORE
                 // =================================================
 
                 await setDoc(
@@ -714,7 +718,7 @@ if (formRegistro) {
 
 
                 // =================================================
-                // REGISTRO CORRECTO
+                // ÉXITO
                 // =================================================
 
                 mostrarRegistroMensaje(
@@ -722,8 +726,6 @@ if (formRegistro) {
                     "success"
                 );
 
-
-                // Esperamos un momento para mostrar mensaje
 
                 setTimeout(
                     () => {
@@ -794,7 +796,15 @@ if (formRegistro) {
                     case "permission-denied":
 
                         mensaje =
-                            "Firebase rechazó el acceso a la base de datos. Revisá las reglas de Firestore.";
+                            "Firebase rechazó el acceso a Firestore. Revisá las reglas.";
+
+                        break;
+
+
+                    case "auth/api-key-not-valid":
+
+                        mensaje =
+                            "La API Key de Firebase no es válida.";
 
                         break;
 
@@ -802,7 +812,8 @@ if (formRegistro) {
                     default:
 
                         mensaje =
-                            `${error.message || "Error desconocido."}`;
+                            error.message ||
+                            "Error desconocido.";
 
                 }
 
@@ -810,11 +821,6 @@ if (formRegistro) {
                 mostrarRegistroMensaje(
                     mensaje
                 );
-
-
-                // Si Auth creó el usuario pero Firestore falló,
-                // no guardamos datos sensibles ni mostramos
-                // la cuenta como terminada.
 
 
             } finally {
@@ -930,4 +936,315 @@ if (formLogin) {
                         mensaje =
                             "No existe una cuenta con ese email.";
 
-                       
+                        break;
+
+
+                    case "auth/wrong-password":
+
+                        mensaje =
+                            "La contraseña es incorrecta.";
+
+                        break;
+
+
+                    case "auth/invalid-email":
+
+                        mensaje =
+                            "El email ingresado no es válido.";
+
+                        break;
+
+
+                    case "auth/network-request-failed":
+
+                        mensaje =
+                            "No hay conexión con Firebase.";
+
+                        break;
+
+
+                    default:
+
+                        mensaje =
+                            error.message ||
+                            "Error desconocido.";
+
+                }
+
+
+                mostrarLoginMensaje(
+                    mensaje
+                );
+
+
+            } finally {
+
+                if (botonLogin) {
+
+                    botonLogin.disabled = false;
+
+                    botonLogin.textContent =
+                        "Ingresar";
+
+                }
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// MOSTRAR PANEL
+// ============================================================
+
+async function mostrarPanel(usuario) {
+
+    try {
+
+        const referencia =
+            doc(
+                db,
+                "cuentas",
+                usuario.uid
+            );
+
+
+        const resultado =
+            await getDoc(
+                referencia
+            );
+
+
+        if (!resultado.exists()) {
+
+            mostrarLoginMensaje(
+                "Tu usuario existe, pero todavía no encontramos los datos de tu cuenta."
+            );
+
+            mostrarLogin();
+
+            return;
+
+        }
+
+
+        const cuenta =
+            resultado.data();
+
+
+        // ----------------------------------------------------
+        // PANTALLAS
+        // ----------------------------------------------------
+
+        pantallaLogin?.classList.add(
+            "hidden"
+        );
+
+        pantallaRegistro?.classList.add(
+            "hidden"
+        );
+
+        pantallaPanel?.classList.remove(
+            "hidden"
+        );
+
+        btnCerrarSesion?.classList.remove(
+            "hidden"
+        );
+
+
+        // ----------------------------------------------------
+        // ELEMENTOS DEL PANEL
+        // ----------------------------------------------------
+
+        const nombreUsuario =
+            document.getElementById(
+                "nombreUsuario"
+            );
+
+        const saldo =
+            document.getElementById(
+                "saldo"
+            );
+
+        const accountId =
+            document.getElementById(
+                "accountId"
+            );
+
+        const aliasCuenta =
+            document.getElementById(
+                "aliasCuenta"
+            );
+
+        const emailCuenta =
+            document.getElementById(
+                "emailCuenta"
+            );
+
+
+        if (nombreUsuario) {
+
+            nombreUsuario.textContent =
+                `${cuenta.nombre || ""} ${cuenta.apellido || ""}`.trim()
+                ||
+                usuario.displayName
+                ||
+                "Usuario";
+
+        }
+
+
+        if (saldo) {
+
+            const valor =
+                Number(
+                    cuenta.saldo || 0
+                );
+
+            saldo.textContent =
+                valor.toLocaleString(
+                    "es-AR",
+                    {
+                        style: "currency",
+                        currency: "ARS"
+                    }
+                );
+
+        }
+
+
+        if (accountId) {
+
+            accountId.textContent =
+                cuenta.accountId ||
+                "---";
+
+        }
+
+
+        if (aliasCuenta) {
+
+            aliasCuenta.textContent =
+                cuenta.alias ||
+                "---";
+
+        }
+
+
+        if (emailCuenta) {
+
+            emailCuenta.textContent =
+                cuenta.email ||
+                usuario.email ||
+                "---";
+
+        }
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+
+    } catch (error) {
+
+        console.error(
+            "Error cargando cuenta:",
+            error
+        );
+
+
+        mostrarLoginMensaje(
+            "No se pudieron cargar los datos de la cuenta."
+        );
+
+    }
+
+}
+
+
+// ============================================================
+// CERRAR SESIÓN
+// ============================================================
+
+if (btnCerrarSesion) {
+
+    btnCerrarSesion.addEventListener(
+        "click",
+        async function() {
+
+            try {
+
+                await signOut(auth);
+
+                mostrarLogin();
+
+                const form =
+                    document.getElementById(
+                        "formLogin"
+                    );
+
+                if (form) {
+                    form.reset();
+                }
+
+            } catch (error) {
+
+                console.error(
+                    "Error cerrando sesión:",
+                    error
+                );
+
+            }
+
+        }
+    );
+
+}
+
+
+// ============================================================
+// ESTADO DE AUTENTICACIÓN
+// ============================================================
+
+onAuthStateChanged(
+    auth,
+    async function(usuario) {
+
+        if (usuario) {
+
+            console.log(
+                "GESBANK: usuario autenticado",
+                usuario.uid
+            );
+
+            await mostrarPanel(
+                usuario
+            );
+
+        } else {
+
+            console.log(
+                "GESBANK: sin sesión"
+            );
+
+            mostrarLogin();
+
+        }
+
+    }
+);
+
+
+// ============================================================
+// INICIO
+// ============================================================
+
+console.log(
+    "GESBANK: app.js cargado correctamente"
+);
