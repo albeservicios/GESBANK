@@ -1,64 +1,584 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="theme-color" content="#071a36">
-  <title>GESBANK</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="theme-color"
+        content="#07111f"
+    >
+
+    <title>GESBANK</title>
+
+    <link
+        rel="stylesheet"
+        href="styles.css"
+    >
 </head>
+
 <body>
-  <header class="top">
-    <div class="brand"><span class="logo">G</span><div><b>GESBANK</b><small>Tu dinero, siempre contigo</small></div></div>
-    <button id="logout" class="ghost">Salir</button>
-  </header>
 
-  <main>
-    <section id="authView" class="panel auth">
-      <h1>Bienvenido a GESBANK</h1>
-      <p>Creá tu cuenta de prueba y comenzá a operar.</p>
-      <input id="email" type="email" placeholder="Email">
-      <input id="password" type="password" placeholder="Contraseña">
-      <input id="name" type="text" placeholder="Nombre completo">
-      <button id="register" class="primary">Crear cuenta</button>
-      <button id="login" class="secondary">Ingresar</button>
-      <p id="authMsg" class="msg"></p>
-    </section>
+<div id="app">
 
-    <section id="bankView" hidden>
-      <div class="account">
-        <div>
-          <span>Cuenta GESBANK</span>
-          <h2 id="balance">$ 0,00</h2>
-          <p>Alias: <b id="alias">—</b> <button id="copyAlias" class="copy">Copiar</button></p>
+    <!-- =========================
+         LOGIN / REGISTRO
+    ========================== -->
+
+    <section id="authView" class="auth-view">
+
+        <div class="auth-card">
+
+            <div class="brand">
+                <div class="brand-logo">G</div>
+
+                <div>
+                    <h1>GESBANK</h1>
+                    <p>Tu dinero. Tu control.</p>
+                </div>
+            </div>
+
+            <div class="auth-tabs">
+                <button
+                    id="loginTab"
+                    class="auth-tab active"
+                    type="button"
+                >
+                    Ingresar
+                </button>
+
+                <button
+                    id="registerTab"
+                    class="auth-tab"
+                    type="button"
+                >
+                    Crear cuenta
+                </button>
+            </div>
+
+            <!-- LOGIN -->
+
+            <form id="loginForm">
+
+                <label>Email</label>
+
+                <input
+                    id="loginEmail"
+                    type="email"
+                    placeholder="tu@email.com"
+                    required
+                >
+
+                <label>Contraseña</label>
+
+                <input
+                    id="loginPassword"
+                    type="password"
+                    placeholder="Tu contraseña"
+                    required
+                >
+
+                <button
+                    class="primary-button"
+                    type="submit"
+                >
+                    Ingresar
+                </button>
+
+            </form>
+
+            <!-- REGISTRO -->
+
+            <form
+                id="registerForm"
+                class="hidden"
+            >
+
+                <label>Nombre</label>
+
+                <input
+                    id="registerName"
+                    type="text"
+                    placeholder="Tu nombre"
+                    required
+                >
+
+                <label>Email</label>
+
+                <input
+                    id="registerEmail"
+                    type="email"
+                    placeholder="tu@email.com"
+                    required
+                >
+
+                <label>Contraseña</label>
+
+                <input
+                    id="registerPassword"
+                    type="password"
+                    placeholder="Mínimo 6 caracteres"
+                    minlength="6"
+                    required
+                >
+
+                <label>Alias</label>
+
+                <input
+                    id="registerAlias"
+                    type="text"
+                    placeholder="ejemplo.gesbank"
+                    required
+                >
+
+                <button
+                    class="primary-button"
+                    type="submit"
+                >
+                    Crear cuenta
+                </button>
+
+            </form>
+
+            <p
+                id="authMessage"
+                class="message"
+            ></p>
+
         </div>
-        <div class="account-id">Cuenta<br><b id="accountId">—</b></div>
-      </div>
 
-      <div class="actions">
-        <button data-action="send">↗<b>Enviar</b><small>Dinero</small></button>
-        <button data-action="receive">↓<b>Recibir</b><small>Dinero</small></button>
-        <button data-action="pay">▣<b>Pagar</b><small>Comercio</small></button>
-        <button data-action="movements">☷<b>Movimientos</b><small>Historial</small></button>
-      </div>
-
-      <section class="panel">
-        <div class="section-title"><h2>Últimos movimientos</h2><button id="allMovements" class="link">Ver todos</button></div>
-        <div id="movements"></div>
-      </section>
-
-      <section id="operation" class="panel" hidden></section>
     </section>
-  </main>
 
-  <template id="movementTemplate">
-    <article class="movement">
-      <div class="movement-icon"></div>
-      <div class="movement-text"><b class="movement-title"></b><small class="movement-detail"></small><small class="movement-date"></small></div>
-      <strong class="movement-amount"></strong>
-    </article>
-  </template>
 
-  <script type="module" src="app.js"></script>
+    <!-- =========================
+         BANCO
+    ========================== -->
+
+    <section
+        id="bankView"
+        class="bank-view hidden"
+    >
+
+        <header class="topbar">
+
+            <div class="brand small">
+
+                <div class="brand-logo">
+                    G
+                </div>
+
+                <div>
+                    <strong>GESBANK</strong>
+                    <span>Cuenta digital</span>
+                </div>
+
+            </div>
+
+            <button
+                id="logoutButton"
+                class="logout-button"
+                type="button"
+            >
+                Salir
+            </button>
+
+        </header>
+
+
+        <main class="main-container">
+
+            <!-- SALDO -->
+
+            <section class="balance-card">
+
+                <div class="balance-top">
+
+                    <span>Saldo disponible</span>
+
+                    <button
+                        id="toggleBalance"
+                        type="button"
+                    >
+                        👁
+                    </button>
+
+                </div>
+
+                <div
+                    id="balance"
+                    class="balance"
+                >
+                    $0,00
+                </div>
+
+                <div class="account-data">
+
+                    <div>
+                        <span>Alias</span>
+                        <strong id="accountAlias">
+                            -
+                        </strong>
+                    </div>
+
+                    <div>
+                        <span>Cuenta</span>
+                        <strong id="accountId">
+                            -
+                        </strong>
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- SALUDO -->
+
+            <section class="welcome">
+
+                <span>Hola 👋</span>
+
+                <h2 id="userName">
+                    Usuario
+                </h2>
+
+            </section>
+
+
+            <!-- ACCIONES -->
+
+            <section class="quick-actions">
+
+                <button
+                    class="action-card"
+                    data-operation="send"
+                    type="button"
+                >
+                    <span class="action-icon">↗</span>
+                    <strong>Enviar</strong>
+                    <small>Dinero</small>
+                </button>
+
+                <button
+                    class="action-card"
+                    data-operation="receive"
+                    type="button"
+                >
+                    <span class="action-icon">↓</span>
+                    <strong>Recibir</strong>
+                    <small>Dinero</small>
+                </button>
+
+                <button
+                    class="action-card"
+                    data-operation="pay"
+                    type="button"
+                >
+                    <span class="action-icon">$</span>
+                    <strong>Pagar</strong>
+                    <small>Servicio</small>
+                </button>
+
+                <button
+                    class="action-card"
+                    data-operation="movements"
+                    type="button"
+                >
+                    <span class="action-icon">☷</span>
+                    <strong>Movimientos</strong>
+                    <small>Ver actividad</small>
+                </button>
+
+            </section>
+
+
+            <!-- OPERACIÓN -->
+
+            <section
+                id="operationPanel"
+                class="operation-panel hidden"
+            >
+
+                <div class="panel-header">
+
+                    <h3 id="operationTitle">
+                        Operación
+                    </h3>
+
+                    <button
+                        id="closeOperation"
+                        type="button"
+                    >
+                        ×
+                    </button>
+
+                </div>
+
+
+                <!-- ENVIAR -->
+
+                <form
+                    id="sendForm"
+                    class="operation-form hidden"
+                >
+
+                    <label>
+                        Alias, email o cuenta del destinatario
+                    </label>
+
+                    <input
+                        id="sendDestination"
+                        type="text"
+                        placeholder="ejemplo.gesbank"
+                        required
+                    >
+
+                    <label>
+                        Monto
+                    </label>
+
+                    <input
+                        id="sendAmount"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="0.00"
+                        required
+                    >
+
+                    <label>
+                        Concepto
+                    </label>
+
+                    <input
+                        id="sendConcept"
+                        type="text"
+                        maxlength="100"
+                        placeholder="Ej: Pago de servicio"
+                    >
+
+                    <button
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Enviar dinero
+                    </button>
+
+                </form>
+
+
+                <!-- RECIBIR -->
+
+                <div
+                    id="receivePanel"
+                    class="operation-form hidden"
+                >
+
+                    <div class="receive-box">
+
+                        <div class="receive-icon">
+                            ↓
+                        </div>
+
+                        <h3>
+                            Recibí dinero en GESBANK
+                        </h3>
+
+                        <p>
+                            Compartí estos datos con la persona
+                            que te quiere enviar dinero.
+                        </p>
+
+                        <div class="share-data">
+
+                            <span>Alias</span>
+
+                            <strong id="receiveAlias">
+                                -
+                            </strong>
+
+                        </div>
+
+                        <div class="share-data">
+
+                            <span>Número de cuenta</span>
+
+                            <strong id="receiveAccount">
+                                -
+                            </strong>
+
+                        </div>
+
+                        <button
+                            id="copyAccount"
+                            class="secondary-button"
+                            type="button"
+                        >
+                            Copiar datos
+                        </button>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PAGAR -->
+
+                <form
+                    id="payForm"
+                    class="operation-form hidden"
+                >
+
+                    <label>
+                        Concepto / comercio
+                    </label>
+
+                    <input
+                        id="payDestination"
+                        type="text"
+                        placeholder="Comercio o servicio"
+                        required
+                    >
+
+                    <label>
+                        Monto
+                    </label>
+
+                    <input
+                        id="payAmount"
+                        type="number"
+                        min="0.01"
+                        step="0.01"
+                        placeholder="0.00"
+                        required
+                    >
+
+                    <button
+                        class="primary-button"
+                        type="submit"
+                    >
+                        Confirmar pago
+                    </button>
+
+                </form>
+
+
+                <!-- MOVIMIENTOS -->
+
+                <div
+                    id="movementsPanel"
+                    class="operation-form hidden"
+                >
+
+                    <div
+                        id="movementsList"
+                        class="movements-list"
+                    >
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ÚLTIMOS MOVIMIENTOS -->
+
+            <section class="recent-section">
+
+                <div class="section-title">
+
+                    <h3>
+                        Últimos movimientos
+                    </h3>
+
+                    <button
+                        id="viewAllMovements"
+                        type="button"
+                    >
+                        Ver todos
+                    </button>
+
+                </div>
+
+                <div
+                    id="recentMovements"
+                    class="movements-list"
+                >
+                </div>
+
+            </section>
+
+        </main>
+
+    </section>
+
+
+    <!-- =========================
+         COMPROBANTE
+    ========================== -->
+
+    <div
+        id="receiptModal"
+        class="modal hidden"
+    >
+
+        <div class="receipt-card">
+
+            <button
+                id="closeReceipt"
+                class="modal-close"
+                type="button"
+            >
+                ×
+            </button>
+
+            <div class="receipt-success">
+                ✓
+            </div>
+
+            <h2>
+                Operación realizada
+            </h2>
+
+            <p>
+                El movimiento fue registrado correctamente.
+            </p>
+
+            <div
+                id="receiptContent"
+                class="receipt-content"
+            >
+            </div>
+
+            <button
+                id="receiptOk"
+                class="primary-button"
+                type="button"
+            >
+                Listo
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- TOAST -->
+
+    <div
+        id="toast"
+        class="toast"
+    >
+    </div>
+
+</div>
+
+
+<script type="module" src="app.js"></script>
+
 </body>
 </html>
