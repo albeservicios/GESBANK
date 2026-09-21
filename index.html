@@ -2,6 +2,7 @@
 <html lang="es">
 
 <head>
+
     <meta charset="UTF-8">
 
     <meta
@@ -20,24 +21,40 @@
         rel="stylesheet"
         href="styles.css"
     >
+
 </head>
 
+
 <body>
+
 
 <header class="topbar">
 
     <div class="brand">
-        <div class="brand-icon">G</div>
+
+        <div class="brand-icon">
+            G
+        </div>
 
         <div>
-            <strong>GESBANK</strong>
-            <span>Banca digital</span>
+
+            <strong>
+                GESBANK
+            </strong>
+
+            <span>
+                Banca digital
+            </span>
+
         </div>
+
     </div>
+
 
     <button
         id="btnCerrarSesion"
         class="btn-secondary hidden"
+        type="button"
     >
         Cerrar sesión
     </button>
@@ -45,588 +62,730 @@
 </header>
 
 
+
 <main class="container">
 
 
-    <!-- =====================================================
-         LOGIN
-    ====================================================== -->
+<!-- =====================================================
+     LOGIN
+===================================================== -->
 
-    <section
-        id="pantallaLogin"
-        class="card"
+<section
+    id="pantallaLogin"
+    class="card"
+>
+
+    <div class="section-title">
+
+        <span class="security-icon">
+            🔐
+        </span>
+
+        <div>
+
+            <h1>
+                Ingresar a GESBANK
+            </h1>
+
+            <p>
+                Accedé de forma segura a tu cuenta.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <form id="formLogin">
+
+
+        <label for="loginEmail">
+            Email
+        </label>
+
+        <input
+            id="loginEmail"
+            type="email"
+            autocomplete="email"
+            placeholder="tu@email.com"
+            required
+        >
+
+
+
+        <label for="loginPassword">
+            Contraseña
+        </label>
+
+        <input
+            id="loginPassword"
+            type="password"
+            autocomplete="current-password"
+            placeholder="Tu contraseña"
+            required
+        >
+
+
+
+        <button
+            type="submit"
+            class="btn-primary"
+        >
+            Ingresar
+        </button>
+
+    </form>
+
+
+
+    <div
+        id="loginMensaje"
+        class="mensaje"
+    ></div>
+
+
+
+    <!-- BOTÓN DIRECTO AL REGISTRO -->
+
+    <button
+        id="btnMostrarRegistro"
+        class="link-button"
+        type="button"
+        onclick="mostrarRegistro()"
     >
+        Crear una cuenta GESBANK
+    </button>
 
-        <div class="section-title">
-            <span class="security-icon">🔐</span>
 
-            <div>
-                <h1>Ingresar a GESBANK</h1>
-                <p>Accedé de forma segura a tu cuenta.</p>
-            </div>
+</section>
+
+
+
+
+<!-- =====================================================
+     REGISTRO
+===================================================== -->
+
+<section
+    id="pantallaRegistro"
+    class="card hidden"
+>
+
+
+    <div class="section-title">
+
+        <span class="security-icon">
+            🛡️
+        </span>
+
+        <div>
+
+            <h1>
+                Abrir cuenta
+            </h1>
+
+            <p>
+                Completá todos los datos solicitados.
+            </p>
+
+        </div>
+
+    </div>
+
+
+
+    <div class="security-notice">
+
+        <strong>
+            Registro seguro
+        </strong>
+
+        <span>
+            Los datos se utilizan para identificar
+            y proteger tu cuenta.
+        </span>
+
+    </div>
+
+
+
+
+    <form id="formRegistro">
+
+
+        <!-- =================================================
+             1. DATOS PERSONALES
+        ================================================== -->
+
+        <div class="form-section">
+
+            <h2>
+                1. Datos personales
+            </h2>
+
+
+            <label for="nombre">
+                Nombre
+            </label>
+
+            <input
+                id="nombre"
+                type="text"
+                autocomplete="given-name"
+                placeholder="Nombre"
+                required
+            >
+
+
+
+            <label for="apellido">
+                Apellido
+            </label>
+
+            <input
+                id="apellido"
+                type="text"
+                autocomplete="family-name"
+                placeholder="Apellido"
+                required
+            >
+
+
+
+            <label for="dni">
+                DNI
+            </label>
+
+            <input
+                id="dni"
+                type="text"
+                inputmode="numeric"
+                placeholder="Número de DNI"
+                required
+            >
+
+
+
+            <label for="fechaNacimiento">
+                Fecha de nacimiento
+            </label>
+
+            <input
+                id="fechaNacimiento"
+                type="date"
+                required
+            >
+
+
+
+            <label for="nacionalidad">
+                Nacionalidad
+            </label>
+
+            <input
+                id="nacionalidad"
+                type="text"
+                value="Argentina"
+                placeholder="Nacionalidad"
+                required
+            >
+
         </div>
 
 
-        <form id="formLogin">
 
-            <label for="loginEmail">
+
+        <!-- =================================================
+             2. DOMICILIO
+        ================================================== -->
+
+        <div class="form-section">
+
+            <h2>
+                2. Domicilio
+            </h2>
+
+
+            <label for="domicilio">
+                Domicilio
+            </label>
+
+            <input
+                id="domicilio"
+                type="text"
+                autocomplete="street-address"
+                placeholder="Calle y número"
+                required
+            >
+
+
+
+            <label for="ciudad">
+                Ciudad
+            </label>
+
+            <input
+                id="ciudad"
+                type="text"
+                placeholder="Ciudad"
+                required
+            >
+
+
+
+            <label for="provincia">
+                Provincia
+            </label>
+
+            <input
+                id="provincia"
+                type="text"
+                placeholder="Provincia"
+                required
+            >
+
+        </div>
+
+
+
+
+        <!-- =================================================
+             3. CONTACTO
+        ================================================== -->
+
+        <div class="form-section">
+
+            <h2>
+                3. Datos de contacto
+            </h2>
+
+
+            <label for="telefono">
+                Número de celular
+            </label>
+
+            <input
+                id="telefono"
+                type="tel"
+                autocomplete="tel"
+                placeholder="+54 9..."
+                required
+            >
+
+            <small>
+                Tu celular deberá verificarse mediante SMS.
+            </small>
+
+
+
+            <label for="registroEmail">
                 Email
             </label>
 
             <input
-                id="loginEmail"
+                id="registroEmail"
                 type="email"
                 autocomplete="email"
                 placeholder="tu@email.com"
                 required
             >
 
-
-            <label for="loginPassword">
-                Contraseña
-            </label>
-
-            <input
-                id="loginPassword"
-                type="password"
-                autocomplete="current-password"
-                placeholder="Tu contraseña"
-                required
-            >
-
-
-            <button
-                type="submit"
-                class="btn-primary"
-            >
-                Ingresar
-            </button>
-
-        </form>
-
-
-        <div
-            id="loginMensaje"
-            class="mensaje"
-        ></div>
-
-
-        <button
-            id="btnMostrarRegistro"
-            class="link-button"
-            type="button"
-        >
-            Crear una cuenta GESBANK
-        </button>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         REGISTRO
-    ====================================================== -->
-
-    <section
-        id="pantallaRegistro"
-        class="card hidden"
-    >
-
-        <div class="section-title">
-
-            <span class="security-icon">🛡️</span>
-
-            <div>
-                <h1>Abrir cuenta</h1>
-
-                <p>
-                    Completá todos los datos solicitados.
-                </p>
-            </div>
-
-        </div>
-
-
-        <div class="security-notice">
-
-            <strong>Registro seguro</strong>
-
-            <span>
-                Los datos se utilizan para identificar y proteger
-                tu cuenta.
-            </span>
-
-        </div>
-
-
-        <form id="formRegistro">
-
-
-            <!-- ===============================
-                 DATOS PERSONALES
-            ================================ -->
-
-            <div class="form-section">
-
-                <h2>1. Datos personales</h2>
-
-                <label for="nombre">
-                    Nombre
-                </label>
-
-                <input
-                    id="nombre"
-                    type="text"
-                    autocomplete="given-name"
-                    placeholder="Nombre"
-                    required
-                >
-
-
-                <label for="apellido">
-                    Apellido
-                </label>
-
-                <input
-                    id="apellido"
-                    type="text"
-                    autocomplete="family-name"
-                    placeholder="Apellido"
-                    required
-                >
-
-
-                <label for="dni">
-                    DNI
-                </label>
-
-                <input
-                    id="dni"
-                    type="text"
-                    inputmode="numeric"
-                    placeholder="Número de DNI"
-                    required
-                >
-
-
-                <label for="fechaNacimiento">
-                    Fecha de nacimiento
-                </label>
-
-                <input
-                    id="fechaNacimiento"
-                    type="date"
-                    required
-                >
-
-
-                <label for="nacionalidad">
-                    Nacionalidad
-                </label>
-
-                <input
-                    id="nacionalidad"
-                    type="text"
-                    placeholder="Argentina"
-                    value="Argentina"
-                    required
-                >
-
-            </div>
-
-
-
-            <!-- ===============================
-                 DOMICILIO
-            ================================ -->
-
-            <div class="form-section">
-
-                <h2>2. Domicilio</h2>
-
-                <label for="domicilio">
-                    Domicilio
-                </label>
-
-                <input
-                    id="domicilio"
-                    type="text"
-                    autocomplete="street-address"
-                    placeholder="Calle y número"
-                    required
-                >
-
-
-                <label for="ciudad">
-                    Ciudad
-                </label>
-
-                <input
-                    id="ciudad"
-                    type="text"
-                    placeholder="Ciudad"
-                    required
-                >
-
-
-                <label for="provincia">
-                    Provincia
-                </label>
-
-                <input
-                    id="provincia"
-                    type="text"
-                    placeholder="Provincia"
-                    required
-                >
-
-            </div>
-
-
-
-            <!-- ===============================
-                 CONTACTO
-            ================================ -->
-
-            <div class="form-section">
-
-                <h2>3. Datos de contacto</h2>
-
-                <label for="telefono">
-                    Número de celular
-                </label>
-
-                <input
-                    id="telefono"
-                    type="tel"
-                    autocomplete="tel"
-                    placeholder="+54 9..."
-                    required
-                >
-
-                <small>
-                    En una versión real se verificará mediante SMS.
-                </small>
-
-
-                <label for="registroEmail">
-                    Email
-                </label>
-
-                <input
-                    id="registroEmail"
-                    type="email"
-                    autocomplete="email"
-                    placeholder="tu@email.com"
-                    required
-                >
-
-                <small>
-                    Se utilizará para la recuperación de la cuenta.
-                </small>
-
-            </div>
-
-
-
-            <!-- ===============================
-                 IDENTIDAD
-            ================================ -->
-
-            <div class="form-section">
-
-                <h2>4. Verificación de identidad</h2>
-
-
-                <label for="dniFrente">
-                    DNI — frente
-                </label>
-
-                <input
-                    id="dniFrente"
-                    type="file"
-                    accept="image/*"
-                    required
-                >
-
-
-                <label for="dniDorso">
-                    DNI — dorso
-                </label>
-
-                <input
-                    id="dniDorso"
-                    type="file"
-                    accept="image/*"
-                    required
-                >
-
-
-                <label for="selfie">
-                    Foto de verificación
-                </label>
-
-                <input
-                    id="selfie"
-                    type="file"
-                    accept="image/*"
-                    capture="user"
-                    required
-                >
-
-
-                <div class="verification-warning">
-
-                    <strong>Verificación pendiente</strong>
-
-                    <span>
-                        En este prototipo las imágenes quedan
-                        preparadas para una futura verificación
-                        segura de identidad.
-                    </span>
-
-                </div>
-
-            </div>
-
-
-
-            <!-- ===============================
-                 SEGURIDAD
-            ================================ -->
-
-            <div class="form-section">
-
-                <h2>5. Seguridad</h2>
-
-
-                <label for="registroPassword">
-                    Contraseña
-                </label>
-
-                <input
-                    id="registroPassword"
-                    type="password"
-                    autocomplete="new-password"
-                    placeholder="Mínimo 8 caracteres"
-                    minlength="8"
-                    required
-                >
-
-
-                <label for="confirmarPassword">
-                    Repetir contraseña
-                </label>
-
-                <input
-                    id="confirmarPassword"
-                    type="password"
-                    autocomplete="new-password"
-                    placeholder="Repetí tu contraseña"
-                    minlength="8"
-                    required
-                >
-
-
-                <label for="tokenSeguridad">
-                    Token de Seguridad
-                </label>
-
-                <input
-                    id="tokenSeguridad"
-                    type="password"
-                    inputmode="numeric"
-                    maxlength="6"
-                    pattern="[0-9]{6}"
-                    placeholder="••••••"
-                    required
-                >
-
-                <small>
-                    Debe contener exactamente 6 números.
-                </small>
-
-
-                <label for="confirmarToken">
-                    Repetir Token de Seguridad
-                </label>
-
-                <input
-                    id="confirmarToken"
-                    type="password"
-                    inputmode="numeric"
-                    maxlength="6"
-                    pattern="[0-9]{6}"
-                    placeholder="••••••"
-                    required
-                >
-
-            </div>
-
-
-
-            <!-- ===============================
-                 TÉRMINOS
-            ================================ -->
-
-            <div class="form-section">
-
-                <h2>6. Aceptaciones</h2>
-
-                <label class="check-row">
-
-                    <input
-                        id="aceptaTerminos"
-                        type="checkbox"
-                        required
-                    >
-
-                    <span>
-                        Acepto los términos y condiciones
-                        de GESBANK.
-                    </span>
-
-                </label>
-
-
-                <label class="check-row">
-
-                    <input
-                        id="aceptaPrivacidad"
-                        type="checkbox"
-                        required
-                    >
-
-                    <span>
-                        Acepto la política de privacidad.
-                    </span>
-
-                </label>
-
-            </div>
-
-
-            <button
-                type="submit"
-                class="btn-primary"
-            >
-                Crear cuenta GESBANK
-            </button>
-
-        </form>
-
-
-        <div
-            id="registroMensaje"
-            class="mensaje"
-        ></div>
-
-
-        <button
-            id="btnVolverLogin"
-            class="link-button"
-            type="button"
-        >
-            Ya tengo una cuenta
-        </button>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         PANEL
-    ====================================================== -->
-
-    <section
-        id="pantallaPanel"
-        class="hidden"
-    >
-
-        <div class="welcome-card">
-
-            <span>Cuenta GESBANK</span>
-
-            <h1 id="nombreUsuario">
-                Usuario
-            </h1>
-
-            <div class="account-status">
-                🛡️ Cuenta creada
-            </div>
-
-        </div>
-
-
-        <div class="balance-card">
-
-            <span>Saldo disponible</span>
-
-            <strong id="saldo">
-                $ 0,00
-            </strong>
-
             <small>
-                Cuenta de prueba
+                Se utilizará para iniciar sesión y recuperar
+                el acceso.
             </small>
 
         </div>
 
 
-        <div class="account-card">
 
-            <h2>Datos de tu cuenta</h2>
 
-            <p>
-                <strong>ID de cuenta</strong>
-                <span id="accountId">---</span>
-            </p>
+        <!-- =================================================
+             4. IDENTIDAD
+        ================================================== -->
 
-            <p>
-                <strong>Alias</strong>
-                <span id="aliasCuenta">---</span>
-            </p>
+        <div class="form-section">
 
-            <p>
-                <strong>Email</strong>
-                <span id="emailCuenta">---</span>
-            </p>
+            <h2>
+                4. Verificación de identidad
+            </h2>
 
-            <p>
-                <strong>Estado</strong>
-                <span>Verificación pendiente</span>
-            </p>
+
+            <label for="dniFrente">
+                DNI — frente
+            </label>
+
+            <input
+                id="dniFrente"
+                type="file"
+                accept="image/*"
+                required
+            >
+
+
+
+            <label for="dniDorso">
+                DNI — dorso
+            </label>
+
+            <input
+                id="dniDorso"
+                type="file"
+                accept="image/*"
+                required
+            >
+
+
+
+            <label for="selfie">
+                Foto de verificación
+            </label>
+
+            <input
+                id="selfie"
+                type="file"
+                accept="image/*"
+                capture="user"
+                required
+            >
+
+
+
+            <div class="verification-warning">
+
+                <strong>
+                    Verificación pendiente
+                </strong>
+
+                <span>
+                    Tu identidad será revisada antes de
+                    habilitar todas las operaciones.
+                </span>
+
+            </div>
 
         </div>
 
 
-        <div class="account-card">
 
-            <h2>Seguridad</h2>
 
-            <p>
-                🔐 Token de Seguridad configurado
-            </p>
+        <!-- =================================================
+             5. SEGURIDAD
+        ================================================== -->
 
-            <p>
-                📱 Verificación telefónica preparada
-            </p>
+        <div class="form-section">
 
-            <p>
-                📧 Verificación de email preparada
-            </p>
+            <h2>
+                5. Seguridad
+            </h2>
+
+
+            <label for="registroPassword">
+                Contraseña
+            </label>
+
+            <input
+                id="registroPassword"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Mínimo 8 caracteres"
+                minlength="8"
+                required
+            >
+
+
+
+            <label for="confirmarPassword">
+                Repetir contraseña
+            </label>
+
+            <input
+                id="confirmarPassword"
+                type="password"
+                autocomplete="new-password"
+                placeholder="Repetí tu contraseña"
+                minlength="8"
+                required
+            >
+
+
+
+            <label for="tokenSeguridad">
+                Token de Seguridad
+            </label>
+
+            <input
+                id="tokenSeguridad"
+                type="password"
+                inputmode="numeric"
+                maxlength="6"
+                pattern="[0-9]{6}"
+                placeholder="••••••"
+                required
+            >
+
+            <small>
+                Debe contener exactamente 6 números.
+            </small>
+
+
+
+            <label for="confirmarToken">
+                Repetir Token de Seguridad
+            </label>
+
+            <input
+                id="confirmarToken"
+                type="password"
+                inputmode="numeric"
+                maxlength="6"
+                pattern="[0-9]{6}"
+                placeholder="••••••"
+                required
+            >
 
         </div>
 
-    </section>
+
+
+
+        <!-- =================================================
+             6. ACEPTACIONES
+        ================================================== -->
+
+        <div class="form-section">
+
+            <h2>
+                6. Aceptaciones
+            </h2>
+
+
+            <label class="check-row">
+
+                <input
+                    id="aceptaTerminos"
+                    type="checkbox"
+                    required
+                >
+
+                <span>
+                    Acepto los términos y condiciones
+                    de GESBANK.
+                </span>
+
+            </label>
+
+
+
+            <label class="check-row">
+
+                <input
+                    id="aceptaPrivacidad"
+                    type="checkbox"
+                    required
+                >
+
+                <span>
+                    Acepto la política de privacidad.
+                </span>
+
+            </label>
+
+        </div>
+
+
+
+
+        <button
+            type="submit"
+            class="btn-primary"
+        >
+            Crear cuenta GESBANK
+        </button>
+
+
+    </form>
+
+
+
+
+    <div
+        id="registroMensaje"
+        class="mensaje"
+    ></div>
+
+
+
+
+    <!-- VOLVER AL LOGIN -->
+
+    <button
+        id="btnVolverLogin"
+        class="link-button"
+        type="button"
+        onclick="mostrarLogin()"
+    >
+        Ya tengo una cuenta
+    </button>
+
+
+</section>
+
+
+
+
+<!-- =====================================================
+     PANEL
+===================================================== -->
+
+<section
+    id="pantallaPanel"
+    class="hidden"
+>
+
+
+    <div class="welcome-card">
+
+        <span>
+            Cuenta GESBANK
+        </span>
+
+        <h1 id="nombreUsuario">
+            Usuario
+        </h1>
+
+        <div class="account-status">
+            🛡️ Cuenta creada
+        </div>
+
+    </div>
+
+
+
+
+    <div class="balance-card">
+
+        <span>
+            Saldo disponible
+        </span>
+
+        <strong id="saldo">
+            $ 0,00
+        </strong>
+
+        <small>
+            Cuenta de prueba
+        </small>
+
+    </div>
+
+
+
+
+    <div class="account-card">
+
+        <h2>
+            Datos de tu cuenta
+        </h2>
+
+
+        <p>
+
+            <strong>
+                ID de cuenta
+            </strong>
+
+            <span id="accountId">
+                ---
+            </span>
+
+        </p>
+
+
+
+        <p>
+
+            <strong>
+                Alias
+            </strong>
+
+            <span id="aliasCuenta">
+                ---
+            </span>
+
+        </p>
+
+
+
+        <p>
+
+            <strong>
+                Email
+            </strong>
+
+            <span id="emailCuenta">
+                ---
+            </span>
+
+        </p>
+
+
+
+        <p>
+
+            <strong>
+                Estado
+            </strong>
+
+            <span>
+                Verificación pendiente
+            </span>
+
+        </p>
+
+    </div>
+
+
+
+
+    <div class="account-card">
+
+        <h2>
+            Seguridad
+        </h2>
+
+
+        <p>
+            🔐 Token de Seguridad configurado
+        </p>
+
+
+        <p>
+            📱 Verificación telefónica preparada
+        </p>
+
+
+        <p>
+            📧 Verificación de email preparada
+        </p>
+
+    </div>
+
+
+</section>
+
 
 </main>
+
+
 
 
 <script
     type="module"
     src="app.js"
 ></script>
+
 
 </body>
 
