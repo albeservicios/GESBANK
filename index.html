@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
 
@@ -23,562 +24,610 @@
 
 <body>
 
-<div id="app">
+<header class="topbar">
 
-    <!-- =========================
-         LOGIN / REGISTRO
-    ========================== -->
+    <div class="brand">
+        <div class="brand-icon">G</div>
 
-    <section id="authView" class="auth-view">
-
-        <div class="auth-card">
-
-            <div class="brand">
-                <div class="brand-logo">G</div>
-
-                <div>
-                    <h1>GESBANK</h1>
-                    <p>Tu dinero. Tu control.</p>
-                </div>
-            </div>
-
-            <div class="auth-tabs">
-                <button
-                    id="loginTab"
-                    class="auth-tab active"
-                    type="button"
-                >
-                    Ingresar
-                </button>
-
-                <button
-                    id="registerTab"
-                    class="auth-tab"
-                    type="button"
-                >
-                    Crear cuenta
-                </button>
-            </div>
-
-            <!-- LOGIN -->
-
-            <form id="loginForm">
-
-                <label>Email</label>
-
-                <input
-                    id="loginEmail"
-                    type="email"
-                    placeholder="tu@email.com"
-                    required
-                >
-
-                <label>Contraseña</label>
-
-                <input
-                    id="loginPassword"
-                    type="password"
-                    placeholder="Tu contraseña"
-                    required
-                >
-
-                <button
-                    class="primary-button"
-                    type="submit"
-                >
-                    Ingresar
-                </button>
-
-            </form>
-
-            <!-- REGISTRO -->
-
-            <form
-                id="registerForm"
-                class="hidden"
-            >
-
-                <label>Nombre</label>
-
-                <input
-                    id="registerName"
-                    type="text"
-                    placeholder="Tu nombre"
-                    required
-                >
-
-                <label>Email</label>
-
-                <input
-                    id="registerEmail"
-                    type="email"
-                    placeholder="tu@email.com"
-                    required
-                >
-
-                <label>Contraseña</label>
-
-                <input
-                    id="registerPassword"
-                    type="password"
-                    placeholder="Mínimo 6 caracteres"
-                    minlength="6"
-                    required
-                >
-
-                <label>Alias</label>
-
-                <input
-                    id="registerAlias"
-                    type="text"
-                    placeholder="ejemplo.gesbank"
-                    required
-                >
-
-                <button
-                    class="primary-button"
-                    type="submit"
-                >
-                    Crear cuenta
-                </button>
-
-            </form>
-
-            <p
-                id="authMessage"
-                class="message"
-            ></p>
-
+        <div>
+            <strong>GESBANK</strong>
+            <span>Banca digital</span>
         </div>
+    </div>
 
-    </section>
+    <button
+        id="btnCerrarSesion"
+        class="btn-secondary hidden"
+    >
+        Cerrar sesión
+    </button>
+
+</header>
 
 
-    <!-- =========================
-         BANCO
-    ========================== -->
+<main class="container">
+
+
+    <!-- =====================================================
+         LOGIN
+    ====================================================== -->
 
     <section
-        id="bankView"
-        class="bank-view hidden"
+        id="pantallaLogin"
+        class="card"
     >
 
-        <header class="topbar">
+        <div class="section-title">
+            <span class="security-icon">🔐</span>
 
-            <div class="brand small">
-
-                <div class="brand-logo">
-                    G
-                </div>
-
-                <div>
-                    <strong>GESBANK</strong>
-                    <span>Cuenta digital</span>
-                </div>
-
+            <div>
+                <h1>Ingresar a GESBANK</h1>
+                <p>Accedé de forma segura a tu cuenta.</p>
             </div>
+        </div>
+
+
+        <form id="formLogin">
+
+            <label for="loginEmail">
+                Email
+            </label>
+
+            <input
+                id="loginEmail"
+                type="email"
+                autocomplete="email"
+                placeholder="tu@email.com"
+                required
+            >
+
+
+            <label for="loginPassword">
+                Contraseña
+            </label>
+
+            <input
+                id="loginPassword"
+                type="password"
+                autocomplete="current-password"
+                placeholder="Tu contraseña"
+                required
+            >
+
 
             <button
-                id="logoutButton"
-                class="logout-button"
-                type="button"
+                type="submit"
+                class="btn-primary"
             >
-                Salir
+                Ingresar
             </button>
 
-        </header>
+        </form>
 
 
-        <main class="main-container">
+        <div
+            id="loginMensaje"
+            class="mensaje"
+        ></div>
 
-            <!-- SALDO -->
 
-            <section class="balance-card">
-
-                <div class="balance-top">
-
-                    <span>Saldo disponible</span>
-
-                    <button
-                        id="toggleBalance"
-                        type="button"
-                    >
-                        👁
-                    </button>
-
-                </div>
-
-                <div
-                    id="balance"
-                    class="balance"
-                >
-                    $0,00
-                </div>
-
-                <div class="account-data">
-
-                    <div>
-                        <span>Alias</span>
-                        <strong id="accountAlias">
-                            -
-                        </strong>
-                    </div>
-
-                    <div>
-                        <span>Cuenta</span>
-                        <strong id="accountId">
-                            -
-                        </strong>
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- SALUDO -->
-
-            <section class="welcome">
-
-                <span>Hola 👋</span>
-
-                <h2 id="userName">
-                    Usuario
-                </h2>
-
-            </section>
-
-
-            <!-- ACCIONES -->
-
-            <section class="quick-actions">
-
-                <button
-                    class="action-card"
-                    data-operation="send"
-                    type="button"
-                >
-                    <span class="action-icon">↗</span>
-                    <strong>Enviar</strong>
-                    <small>Dinero</small>
-                </button>
-
-                <button
-                    class="action-card"
-                    data-operation="receive"
-                    type="button"
-                >
-                    <span class="action-icon">↓</span>
-                    <strong>Recibir</strong>
-                    <small>Dinero</small>
-                </button>
-
-                <button
-                    class="action-card"
-                    data-operation="pay"
-                    type="button"
-                >
-                    <span class="action-icon">$</span>
-                    <strong>Pagar</strong>
-                    <small>Servicio</small>
-                </button>
-
-                <button
-                    class="action-card"
-                    data-operation="movements"
-                    type="button"
-                >
-                    <span class="action-icon">☷</span>
-                    <strong>Movimientos</strong>
-                    <small>Ver actividad</small>
-                </button>
-
-            </section>
-
-
-            <!-- OPERACIÓN -->
-
-            <section
-                id="operationPanel"
-                class="operation-panel hidden"
-            >
-
-                <div class="panel-header">
-
-                    <h3 id="operationTitle">
-                        Operación
-                    </h3>
-
-                    <button
-                        id="closeOperation"
-                        type="button"
-                    >
-                        ×
-                    </button>
-
-                </div>
-
-
-                <!-- ENVIAR -->
-
-                <form
-                    id="sendForm"
-                    class="operation-form hidden"
-                >
-
-                    <label>
-                        Alias, email o cuenta del destinatario
-                    </label>
-
-                    <input
-                        id="sendDestination"
-                        type="text"
-                        placeholder="ejemplo.gesbank"
-                        required
-                    >
-
-                    <label>
-                        Monto
-                    </label>
-
-                    <input
-                        id="sendAmount"
-                        type="number"
-                        min="0.01"
-                        step="0.01"
-                        placeholder="0.00"
-                        required
-                    >
-
-                    <label>
-                        Concepto
-                    </label>
-
-                    <input
-                        id="sendConcept"
-                        type="text"
-                        maxlength="100"
-                        placeholder="Ej: Pago de servicio"
-                    >
-
-                    <button
-                        class="primary-button"
-                        type="submit"
-                    >
-                        Enviar dinero
-                    </button>
-
-                </form>
-
-
-                <!-- RECIBIR -->
-
-                <div
-                    id="receivePanel"
-                    class="operation-form hidden"
-                >
-
-                    <div class="receive-box">
-
-                        <div class="receive-icon">
-                            ↓
-                        </div>
-
-                        <h3>
-                            Recibí dinero en GESBANK
-                        </h3>
-
-                        <p>
-                            Compartí estos datos con la persona
-                            que te quiere enviar dinero.
-                        </p>
-
-                        <div class="share-data">
-
-                            <span>Alias</span>
-
-                            <strong id="receiveAlias">
-                                -
-                            </strong>
-
-                        </div>
-
-                        <div class="share-data">
-
-                            <span>Número de cuenta</span>
-
-                            <strong id="receiveAccount">
-                                -
-                            </strong>
-
-                        </div>
-
-                        <button
-                            id="copyAccount"
-                            class="secondary-button"
-                            type="button"
-                        >
-                            Copiar datos
-                        </button>
-
-                    </div>
-
-                </div>
-
-
-                <!-- PAGAR -->
-
-                <form
-                    id="payForm"
-                    class="operation-form hidden"
-                >
-
-                    <label>
-                        Concepto / comercio
-                    </label>
-
-                    <input
-                        id="payDestination"
-                        type="text"
-                        placeholder="Comercio o servicio"
-                        required
-                    >
-
-                    <label>
-                        Monto
-                    </label>
-
-                    <input
-                        id="payAmount"
-                        type="number"
-                        min="0.01"
-                        step="0.01"
-                        placeholder="0.00"
-                        required
-                    >
-
-                    <button
-                        class="primary-button"
-                        type="submit"
-                    >
-                        Confirmar pago
-                    </button>
-
-                </form>
-
-
-                <!-- MOVIMIENTOS -->
-
-                <div
-                    id="movementsPanel"
-                    class="operation-form hidden"
-                >
-
-                    <div
-                        id="movementsList"
-                        class="movements-list"
-                    >
-                    </div>
-
-                </div>
-
-            </section>
-
-
-            <!-- ÚLTIMOS MOVIMIENTOS -->
-
-            <section class="recent-section">
-
-                <div class="section-title">
-
-                    <h3>
-                        Últimos movimientos
-                    </h3>
-
-                    <button
-                        id="viewAllMovements"
-                        type="button"
-                    >
-                        Ver todos
-                    </button>
-
-                </div>
-
-                <div
-                    id="recentMovements"
-                    class="movements-list"
-                >
-                </div>
-
-            </section>
-
-        </main>
+        <button
+            id="btnMostrarRegistro"
+            class="link-button"
+            type="button"
+        >
+            Crear una cuenta GESBANK
+        </button>
 
     </section>
 
 
-    <!-- =========================
-         COMPROBANTE
-    ========================== -->
 
-    <div
-        id="receiptModal"
-        class="modal hidden"
+    <!-- =====================================================
+         REGISTRO
+    ====================================================== -->
+
+    <section
+        id="pantallaRegistro"
+        class="card hidden"
     >
 
-        <div class="receipt-card">
+        <div class="section-title">
 
-            <button
-                id="closeReceipt"
-                class="modal-close"
-                type="button"
-            >
-                ×
-            </button>
+            <span class="security-icon">🛡️</span>
 
-            <div class="receipt-success">
-                ✓
+            <div>
+                <h1>Abrir cuenta</h1>
+
+                <p>
+                    Completá todos los datos solicitados.
+                </p>
             </div>
-
-            <h2>
-                Operación realizada
-            </h2>
-
-            <p>
-                El movimiento fue registrado correctamente.
-            </p>
-
-            <div
-                id="receiptContent"
-                class="receipt-content"
-            >
-            </div>
-
-            <button
-                id="receiptOk"
-                class="primary-button"
-                type="button"
-            >
-                Listo
-            </button>
 
         </div>
 
-    </div>
+
+        <div class="security-notice">
+
+            <strong>Registro seguro</strong>
+
+            <span>
+                Los datos se utilizan para identificar y proteger
+                tu cuenta.
+            </span>
+
+        </div>
 
 
-    <!-- TOAST -->
+        <form id="formRegistro">
 
-    <div
-        id="toast"
-        class="toast"
+
+            <!-- ===============================
+                 DATOS PERSONALES
+            ================================ -->
+
+            <div class="form-section">
+
+                <h2>1. Datos personales</h2>
+
+                <label for="nombre">
+                    Nombre
+                </label>
+
+                <input
+                    id="nombre"
+                    type="text"
+                    autocomplete="given-name"
+                    placeholder="Nombre"
+                    required
+                >
+
+
+                <label for="apellido">
+                    Apellido
+                </label>
+
+                <input
+                    id="apellido"
+                    type="text"
+                    autocomplete="family-name"
+                    placeholder="Apellido"
+                    required
+                >
+
+
+                <label for="dni">
+                    DNI
+                </label>
+
+                <input
+                    id="dni"
+                    type="text"
+                    inputmode="numeric"
+                    placeholder="Número de DNI"
+                    required
+                >
+
+
+                <label for="fechaNacimiento">
+                    Fecha de nacimiento
+                </label>
+
+                <input
+                    id="fechaNacimiento"
+                    type="date"
+                    required
+                >
+
+
+                <label for="nacionalidad">
+                    Nacionalidad
+                </label>
+
+                <input
+                    id="nacionalidad"
+                    type="text"
+                    placeholder="Argentina"
+                    value="Argentina"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- ===============================
+                 DOMICILIO
+            ================================ -->
+
+            <div class="form-section">
+
+                <h2>2. Domicilio</h2>
+
+                <label for="domicilio">
+                    Domicilio
+                </label>
+
+                <input
+                    id="domicilio"
+                    type="text"
+                    autocomplete="street-address"
+                    placeholder="Calle y número"
+                    required
+                >
+
+
+                <label for="ciudad">
+                    Ciudad
+                </label>
+
+                <input
+                    id="ciudad"
+                    type="text"
+                    placeholder="Ciudad"
+                    required
+                >
+
+
+                <label for="provincia">
+                    Provincia
+                </label>
+
+                <input
+                    id="provincia"
+                    type="text"
+                    placeholder="Provincia"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- ===============================
+                 CONTACTO
+            ================================ -->
+
+            <div class="form-section">
+
+                <h2>3. Datos de contacto</h2>
+
+                <label for="telefono">
+                    Número de celular
+                </label>
+
+                <input
+                    id="telefono"
+                    type="tel"
+                    autocomplete="tel"
+                    placeholder="+54 9..."
+                    required
+                >
+
+                <small>
+                    En una versión real se verificará mediante SMS.
+                </small>
+
+
+                <label for="registroEmail">
+                    Email
+                </label>
+
+                <input
+                    id="registroEmail"
+                    type="email"
+                    autocomplete="email"
+                    placeholder="tu@email.com"
+                    required
+                >
+
+                <small>
+                    Se utilizará para la recuperación de la cuenta.
+                </small>
+
+            </div>
+
+
+
+            <!-- ===============================
+                 IDENTIDAD
+            ================================ -->
+
+            <div class="form-section">
+
+                <h2>4. Verificación de identidad</h2>
+
+
+                <label for="dniFrente">
+                    DNI — frente
+                </label>
+
+                <input
+                    id="dniFrente"
+                    type="file"
+                    accept="image/*"
+                    required
+                >
+
+
+                <label for="dniDorso">
+                    DNI — dorso
+                </label>
+
+                <input
+                    id="dniDorso"
+                    type="file"
+                    accept="image/*"
+                    required
+                >
+
+
+                <label for="selfie">
+                    Foto de verificación
+                </label>
+
+                <input
+                    id="selfie"
+                    type="file"
+                    accept="image/*"
+                    capture="user"
+                    required
+                >
+
+
+                <div class="verification-warning">
+
+                    <strong>Verificación pendiente</strong>
+
+                    <span>
+                        En este prototipo las imágenes quedan
+                        preparadas para una futura verificación
+                        segura de identidad.
+                    </span>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ===============================
+                 SEGURIDAD
+            ================================ -->
+
+            <div class="form-section">
+
+                <h2>5. Seguridad</h2>
+
+
+                <label for="registroPassword">
+                    Contraseña
+                </label>
+
+                <input
+                    id="registroPassword"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="Mínimo 8 caracteres"
+                    minlength="8"
+                    required
+                >
+
+
+                <label for="confirmarPassword">
+                    Repetir contraseña
+                </label>
+
+                <input
+                    id="confirmarPassword"
+                    type="password"
+                    autocomplete="new-password"
+                    placeholder="Repetí tu contraseña"
+                    minlength="8"
+                    required
+                >
+
+
+                <label for="tokenSeguridad">
+                    Token de Seguridad
+                </label>
+
+                <input
+                    id="tokenSeguridad"
+                    type="password"
+                    inputmode="numeric"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="••••••"
+                    required
+                >
+
+                <small>
+                    Debe contener exactamente 6 números.
+                </small>
+
+
+                <label for="confirmarToken">
+                    Repetir Token de Seguridad
+                </label>
+
+                <input
+                    id="confirmarToken"
+                    type="password"
+                    inputmode="numeric"
+                    maxlength="6"
+                    pattern="[0-9]{6}"
+                    placeholder="••••••"
+                    required
+                >
+
+            </div>
+
+
+
+            <!-- ===============================
+                 TÉRMINOS
+            ================================ -->
+
+            <div class="form-section">
+
+                <h2>6. Aceptaciones</h2>
+
+                <label class="check-row">
+
+                    <input
+                        id="aceptaTerminos"
+                        type="checkbox"
+                        required
+                    >
+
+                    <span>
+                        Acepto los términos y condiciones
+                        de GESBANK.
+                    </span>
+
+                </label>
+
+
+                <label class="check-row">
+
+                    <input
+                        id="aceptaPrivacidad"
+                        type="checkbox"
+                        required
+                    >
+
+                    <span>
+                        Acepto la política de privacidad.
+                    </span>
+
+                </label>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn-primary"
+            >
+                Crear cuenta GESBANK
+            </button>
+
+        </form>
+
+
+        <div
+            id="registroMensaje"
+            class="mensaje"
+        ></div>
+
+
+        <button
+            id="btnVolverLogin"
+            class="link-button"
+            type="button"
+        >
+            Ya tengo una cuenta
+        </button>
+
+    </section>
+
+
+
+    <!-- =====================================================
+         PANEL
+    ====================================================== -->
+
+    <section
+        id="pantallaPanel"
+        class="hidden"
     >
-    </div>
 
-</div>
+        <div class="welcome-card">
+
+            <span>Cuenta GESBANK</span>
+
+            <h1 id="nombreUsuario">
+                Usuario
+            </h1>
+
+            <div class="account-status">
+                🛡️ Cuenta creada
+            </div>
+
+        </div>
 
 
-<script type="module" src="app.js"></script>
+        <div class="balance-card">
+
+            <span>Saldo disponible</span>
+
+            <strong id="saldo">
+                $ 0,00
+            </strong>
+
+            <small>
+                Cuenta de prueba
+            </small>
+
+        </div>
+
+
+        <div class="account-card">
+
+            <h2>Datos de tu cuenta</h2>
+
+            <p>
+                <strong>ID de cuenta</strong>
+                <span id="accountId">---</span>
+            </p>
+
+            <p>
+                <strong>Alias</strong>
+                <span id="aliasCuenta">---</span>
+            </p>
+
+            <p>
+                <strong>Email</strong>
+                <span id="emailCuenta">---</span>
+            </p>
+
+            <p>
+                <strong>Estado</strong>
+                <span>Verificación pendiente</span>
+            </p>
+
+        </div>
+
+
+        <div class="account-card">
+
+            <h2>Seguridad</h2>
+
+            <p>
+                🔐 Token de Seguridad configurado
+            </p>
+
+            <p>
+                📱 Verificación telefónica preparada
+            </p>
+
+            <p>
+                📧 Verificación de email preparada
+            </p>
+
+        </div>
+
+    </section>
+
+</main>
+
+
+<script
+    type="module"
+    src="app.js"
+></script>
 
 </body>
+
 </html>
